@@ -1,4 +1,5 @@
 <%= form_with model: @user, local: true do |f|%>
+  <%= render 'layouts/error_messages', object: f.object%>
   <%= f.label :email %>
   <%= f.text_field :email %>
 
