@@ -9,8 +9,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to root_path
+      redirect_to root_path, success: "新規作成に成功しました"
     else
+      flash.now[:danger] = "新規作成に失敗しました"
       render :new
     end
   end
