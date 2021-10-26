@@ -8,8 +8,9 @@ class TasksController < ApplicationController
     @task = current_user.tasks.build(task_params)
 
     if @task.save
-      redirect_to @task
+      redirect_to @task, success: "作成に成功しました"
     else
+      flash.now[:danger] = "作成に失敗しました"
       render :new
     end
   end
@@ -29,18 +30,19 @@ class TasksController < ApplicationController
   def update
     @task = current_user.tasks.find(params[:id])
 
-    @task.update!(task_params)
-    redirect_to @task
+    if @task.update(task_params)
+      redirect_to @task, success: "変更に成功しました"
+    else
+      flash.now[:danger] = "変更に失敗しました"
+      render :edit
+    end
   end
 
   def destroy
     @task = current_user.tasks.find(params[:id])
 
-    if @task.destroy
-      redirect_to tasks_path
-    else
-      render :index
-    end
+    @task.destroy
+    redirect_to tasks_path, success: "削除しました"
   end
 
   private

@@ -18,7 +18,7 @@
       <%= link_to '新規登録', new_user_path %>
       <%= link_to 'ログイン', login_path %>
     <% end%>
-
+    <%= render partial: 'layouts/flash' %>
     <%= yield %>
   </body>
 </html>
